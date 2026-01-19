@@ -1,6 +1,6 @@
 [project]
 name = "copilot-money-cli"
-version = "0.1.1"
+version = "0.1.2"
 description = "CLI for Copilot Money personal finance"
 readme = "README.md"
 license = "MIT"
