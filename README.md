@@ -1,7 +1,8 @@
 # Copilot Money CLI
 
-Command-line interface for the Copilot Money personal finance app. Authenticate once
-and query accounts, transactions, holdings, and allocation data from your terminal.
+Command-line interface for [Copilot Money](https://copilot.money), a personal finance app. Authenticate once and query accounts, transactions, holdings, and allocation data from your terminal.
+
+> **Note:** This is an unofficial tool and is not affiliated with Copilot Money.
 
 ## Install
 
