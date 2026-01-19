@@ -21,9 +21,9 @@ pip install -e .
 ## Quick start
 
 ```bash
-copilot config init
+copilot-money config init
 # ✓ Saved refresh token from chrome
-copilot accounts
+copilot-money accounts
 # Accounts
 # ┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 # ┃ Name             ┃ Type       ┃ Balance      ┃
@@ -37,10 +37,10 @@ copilot accounts
 ## Commands
 
 ```bash
-copilot refresh
+copilot-money refresh
 # { "refreshed": ["conn_123", "conn_456", ...] }
 
-copilot accounts --type CREDIT
+copilot-money accounts --type CREDIT
 # Accounts
 # ┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 # ┃ Name             ┃ Type       ┃ Balance      ┃
@@ -49,7 +49,7 @@ copilot accounts --type CREDIT
 # │ Student Loan     │ LOAN       │ -$8,450.00   │
 # └──────────────────┴────────────┴──────────────┘
 
-copilot accounts --json
+copilot-money accounts --json
 # [
 #   {
 #     "id": "acc_123",
@@ -59,7 +59,7 @@ copilot accounts --json
 #   }
 # ]
 
-copilot transactions --count 3
+copilot-money transactions --count 3
 # Transactions
 # ┏━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Date       ┃ Amount    ┃ Description        ┃
@@ -69,7 +69,7 @@ copilot transactions --count 3
 # │ 2024-09-30 │ $2,200.00 │ Payroll Deposit    │
 # └────────────┴───────────┴────────────────────┘
 
-copilot networth
+copilot-money networth
 # Net Worth
 # ┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 # ┃ Category   ┃ Amount       ┃
@@ -79,7 +79,7 @@ copilot networth
 # │ Net Worth  │ $22,957.01   │
 # └────────────┴──────────────┘
 
-copilot holdings --group account
+copilot-money holdings --group account
 # Brokerage Account — $28,450.33 (100.0%)
 # ┏━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 # ┃ Symbol ┃ Name                         ┃ Quantity ┃ Price    ┃ Value        ┃
@@ -88,7 +88,7 @@ copilot holdings --group account
 # │ BND    │ Vanguard Total Bond Market   │ 55.0000  │ $72.00   │ $3,960.00    │
 # └────────┴──────────────────────────────┴──────────┴──────────┴──────────────┘
 
-copilot allocation
+copilot-money allocation
 # Asset Allocation
 # ┏━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 # ┃ Asset Class  ┃ Value        ┃ %            ┃
@@ -102,7 +102,7 @@ copilot allocation
 # Stock/Bond Ratio: 72/28
 # US/International: 70/30
 
-copilot config show
+copilot-money config show
 # Configuration
 # ┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Setting          ┃ Value                                                ┃
@@ -114,7 +114,7 @@ copilot config show
 # │ Token valid      │ ✓ yes                                                │
 # └──────────────────┴──────────────────────────────────────────────────────┘
 
-copilot config init --source manual
+copilot-money config init --source manual
 # Enter refresh token: ********
 # ✓ Saved refresh token from manual input
 ```
@@ -124,9 +124,9 @@ copilot config init --source manual
 Configuration is stored at `~/.config/copilot-money/config.json`. The CLI can
 auto-detect your Copilot Money refresh token from supported browsers on macOS.
 
-- Auto-detect: `copilot config init`
-- Explicit source: `copilot config init --source arc|chrome|safari|firefox`
-- Manual entry: `copilot config init --source manual` or `--token "..."`
+- Auto-detect: `copilot-money config init`
+- Explicit source: `copilot-money config init --source arc|chrome|safari|firefox`
+- Manual entry: `copilot-money config init --source manual` or `--token "..."`
 
 ### Privacy Note
 

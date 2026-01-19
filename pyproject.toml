@@ -1,6 +1,6 @@
 [project]
 name = "copilot-money-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "CLI for Copilot Money personal finance"
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,7 @@ dev = [
 ]
 
 [project.scripts]
-copilot = "copilot_money.cli:app"
+copilot-money = "copilot_money.cli:app"
 
 [project.urls]
 Homepage = "https://github.com/jayhickey/copilot-money-cli"
