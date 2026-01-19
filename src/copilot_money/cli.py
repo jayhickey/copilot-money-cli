@@ -217,7 +217,7 @@ def holdings(
     json_output: bool = typer.Option(False, "--json", help="Output JSON"),
 ) -> None:
     """Show investment holdings with current values."""
-    holdings_list, _accounts = run_api_action(load_holdings)
+    holdings_list, accounts = run_api_action(load_holdings)
 
     # Filter by type if specified
     if security_type:
@@ -234,7 +234,7 @@ def holdings(
             "quantity": h.quantity,
             "price": h.security.current_price or 0,
             "value": h.value,
-            "account": acct.name if acct else "Unknown",
+            "account": acct.name if acct else "Unknown Account",
             "account_id": h.account_id,
         })
 
