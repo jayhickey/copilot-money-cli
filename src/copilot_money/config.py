@@ -86,9 +86,10 @@ def _leveldb_files(leveldb_path: Path) -> list[Path]:
 def _firefox_idb_paths() -> list[Path]:
     if not FIREFOX_PROFILES_DIR.exists():
         return []
+    # Use wildcard to match container suffixes like ^userContextId=6
     return sorted(
         FIREFOX_PROFILES_DIR.glob(
-            "*/storage/default/https+++app.copilot.money/idb"
+            "*/storage/default/https+++app.copilot.money*/idb"
         )
     )
 
