@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 from datetime import datetime, timezone
@@ -8,6 +9,13 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 from pydantic import BaseModel, Field
+
+
+class SafariPermissionError(Exception):
+    """Raised when Safari data cannot be accessed due to macOS permissions."""
+
+    pass
+
 
 CONFIG_DIR = Path.home() / ".config" / "copilot-money"
 CONFIG_FILE = CONFIG_DIR / "config.json"
@@ -107,9 +115,26 @@ def get_token_from_chrome() -> Optional[str]:
 
 
 def get_token_from_safari() -> Optional[str]:
-    """Attempt to extract the refresh token from Safari local storage."""
+    """Attempt to extract the refresh token from Safari local storage.
+
+    Raises:
+        SafariPermissionError: If macOS denies access to Safari data.
+    """
     if not SAFARI_LOCALSTORAGE_DIR.exists():
         return None
+
+    # Python's glob() silently returns empty list on permission denied,
+    # so we need to explicitly check read access
+    if not os.access(SAFARI_LOCALSTORAGE_DIR, os.R_OK):
+        raise SafariPermissionError(
+            "macOS requires Full Disk Access to read Safari data. "
+            f"The {SAFARI_LOCALSTORAGE_DIR} directory is protected by macOS privacy controls.\n\n"
+            "To fix this:\n"
+            "1. Open System Settings → Privacy & Security → Full Disk Access\n"
+            "2. Click the + button and add your terminal app\n"
+            "3. Restart your terminal and try again"
+        )
+
     safari_files = sorted(SAFARI_LOCALSTORAGE_DIR.glob("*copilot.money*"))
     return _extract_refresh_token_from_files(safari_files)
 
@@ -127,9 +152,13 @@ def get_token_auto() -> tuple[Optional[str], Optional[str]]:
     chrome_token = get_token_from_chrome()
     if chrome_token:
         return chrome_token, "chrome"
-    safari_token = get_token_from_safari()
-    if safari_token:
-        return safari_token, "safari"
+    try:
+        safari_token = get_token_from_safari()
+        if safari_token:
+            return safari_token, "safari"
+    except SafariPermissionError:
+        # Skip Safari if permission denied during auto-detection
+        pass
     firefox_token = get_token_from_firefox()
     if firefox_token:
         return firefox_token, "firefox"

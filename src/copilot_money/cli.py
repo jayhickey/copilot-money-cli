@@ -19,6 +19,7 @@ from copilot_money.config import (
     CopilotConfig,
     FIREFOX_PROFILES_DIR,
     SAFARI_LOCALSTORAGE_DIR,
+    SafariPermissionError,
     get_source_path,
     get_token_auto,
     get_token_from_arc,
@@ -586,7 +587,11 @@ def config_init(
         return
 
     if source_value:
-        fetched_token = resolve_token_from_source(source_value)
+        try:
+            fetched_token = resolve_token_from_source(source_value)
+        except SafariPermissionError as e:
+            console.print(f"[red]✗[/red] {e}")
+            raise typer.Exit(code=1)
         if not fetched_token:
             console.print(f"[red]✗[/red] Could not find token for source: {source_value}")
             raise typer.Exit(code=1)
@@ -622,7 +627,11 @@ def config_refresh() -> None:
         return
 
     if config.source:
-        fetched_token = resolve_token_from_source(config.source)
+        try:
+            fetched_token = resolve_token_from_source(config.source)
+        except SafariPermissionError as e:
+            console.print(f"[red]✗[/red] {e}")
+            raise typer.Exit(code=1)
         if fetched_token:
             config.refresh_token = fetched_token
             config.source_path = get_source_path(config.source)
